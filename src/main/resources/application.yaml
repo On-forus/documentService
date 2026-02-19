@@ -1,0 +1,50 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: document-service
+    version: 0.0.1
+  config:
+    import:
+      - optional:file:.env[.properties]
+
+  jpa:
+    show-sql: true
+    open-in-view: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+#          batch_size: ${BATCH_SIZE}
+#        order_inserts: true
+#        order_updates: true
+#        order_select: true
+        generate_statistics: true
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: ${DATABASE_URL}
+    driver-class-name: org.postgresql.Driver
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+  liquibase:
+    change-log: db/changelog/changelog.xml
+    enabled: true
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG
+        transaction: DEBUG
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+
+document-api:
+  config:
+    batch-size: ${BATCH_SIZE}
