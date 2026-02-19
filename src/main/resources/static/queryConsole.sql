@@ -1,7 +1,9 @@
 DROP TABLE databasechangelog;
 DROP TABLE databasechangeloglock;
-DROP TABLE documents;
-TRUNCATE TABLE documents;
+DROP TABLE documents CASCADE;
+-- DROP TABLE history;
+DROP TABLE registry;
+-- TRUNCATE TABLE documents;
 
 INSERT INTO documents (author, title, uuid, create_date, status)
 SELECT 'Name ' || i, 'title ' || i, gen_random_uuid(), current_date, status

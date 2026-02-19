@@ -6,7 +6,6 @@ import com.service.document.usecases.dto.DocumentCreateRequestDTO;
 import com.service.document.usecases.dto.DocumentCreateResponseDTO;
 import com.service.document.usecases.dto.DocumentHistoryDTO;
 import com.service.document.usecases.dto.DocumentIdStatusDTO;
-import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;

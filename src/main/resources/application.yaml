@@ -9,18 +9,18 @@ spring:
       - optional:file:.env[.properties]
 
   jpa:
-    show-sql: true
+    show-sql: false
     open-in-view: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
+        format_sql: false
         jdbc:
 #          batch_size: ${BATCH_SIZE}
 #        order_inserts: true
 #        order_updates: true
 #        order_select: true
-        generate_statistics: true
+        generate_statistics: false
     hibernate:
       ddl-auto: validate
   datasource:
@@ -36,14 +36,14 @@ logging:
     org:
       springframework:
         orm:
-          jpa: DEBUG
-        transaction: DEBUG
+          jpa: ERROR
+        transaction: ERROR
       hibernate:
-        SQL: DEBUG
+        SQL: ERROR
         type:
           descriptor:
             sql:
-              BasicBinder: TRACE
+              BasicBinder: ERROR
 
 document-api:
   config:

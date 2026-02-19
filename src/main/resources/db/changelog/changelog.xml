@@ -6,4 +6,5 @@
 
     <include file="/db/changelog/changelogs/v-1.0/03.02.2026-document.xml"/>
     <include file="/db/changelog/changelogs/v-1.0/03.02.2026-history.xml"/>
+    <include file="/db/changelog/changelogs/v-1.0/20.02.2026-registry.xml"/>
 </databaseChangeLog>

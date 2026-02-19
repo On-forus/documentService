@@ -19,10 +19,10 @@ public interface DocumentRepository extends JpaRepository<Document, Long>,
 
 
     Page<Document> findAllByOrderByCreateDate(Pageable pageable);
-    @Query(value = "select d from Document d where d.id IN :listId AND d.status =:status")
+    @Query(value = "SELECT d FROM Document d WHERE d.id IN :listId AND d.status =:status")
     List<Document> findAllByStatus(List<Long> listId, Status status);
 
-    @Query(value = "select d from Document d where d.status =:status")
+    @Query(value = "SELECT d FROM Document d WHERE d.status =:status")
     List<Document> findDocumentBatchSizeListAndStatus(Status status, Pageable pageable);
 
 

@@ -59,8 +59,7 @@ public class DocumentServiceImpl implements DocumentService {
     public DocumentHistoryDTO findDocumentById(Long requestId) {
         log.info("Search for a document by ID {}", requestId);
         Document document = documentRepository
-                .findById(requestId)
-                .orElseThrow(() -> new DocumentNotFoundException("Document with id: " + requestId + " not found!"));
+                .findById(requestId).orElseThrow(() -> new DocumentNotFoundException("Document with id: " + requestId + " not found!"));
 
         return documentMapper.entityToDocumentHistoryDto(document);
     }
@@ -68,6 +67,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     @Transactional
     public List<DocumentHistoryDTO> getDocuments(List<Long> listId) {
+
         return documentMapper.listEntityToDocumentHistoryDto(documentRepository.findAllById(listId));
     }
 
