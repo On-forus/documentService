@@ -26,7 +26,14 @@ public class Document implements Serializable {
     private final static long serialVersionUID = 13444445124L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "documents_id_seq_gen")
+    @SequenceGenerator(
+            name = "documents_id_seq_gen",
+            allocationSize = 100,
+            sequenceName = "documents_id_seq",
+            schema = "public",
+            initialValue = 1)
+
     @Column(name = "id")
     private Long id;
     @NotNull

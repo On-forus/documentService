@@ -20,7 +20,14 @@ public class History implements Serializable {
 
     private final static long serialVersionUID = 13412345124L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "history_id_seq_gen")
+    @SequenceGenerator(
+            name = "history_id_seq_gen",
+            allocationSize = 1,
+            sequenceName = "history_id_seq",
+            schema = "public",
+            initialValue = 1)
+
     @Column(name = "id")
     private Long id;
     @NotNull

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequestMapping("api/v1/document")
 @RequiredArgsConstructor
 @Slf4j
+@Validated
 public class DocumentController {
 
     private final DocumentService documentService;
@@ -27,10 +29,10 @@ public class DocumentController {
                 .body(documentService.createDocument(documentCreateRequestDTO));
     }
 
+
     @GetMapping("/getDocument/{requestId}")
     public ResponseEntity<DocumentHistoryDTO> getOneDocumentWithHistory(@PathVariable Long requestId) {
-        log.info("Get document with history by id {}", requestId);
-
+        log.info("Get document with history by ID {}", requestId);
         return ResponseEntity.status(HttpStatus.OK).body(documentService.findDocumentById(requestId));
     }
 

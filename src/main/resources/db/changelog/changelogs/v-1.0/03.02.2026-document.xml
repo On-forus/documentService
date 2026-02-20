@@ -14,6 +14,14 @@
                 <tableExists schemaName="public" tableName="documents"/>
             </not>
         </preConditions>
+        <createSequence  sequenceName="documents_id_seq"
+                         incrementBy="1"
+                         minValue="1"
+                         maxValue="2147483647"
+                         cacheSize="50"
+                         schemaName="public"
+                         startValue="1"
+                         cycle="false"/>
 
         <createTable tableName="documents">
             <column autoIncrement="true" name="id" type="bigserial"> <!-- bigint -->

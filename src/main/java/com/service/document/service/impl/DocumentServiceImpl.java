@@ -42,7 +42,7 @@ public class DocumentServiceImpl implements DocumentService {
         document.setUpdateDate(LocalDate.now());
 
         documentRepository.save(document);
-        log.info("Document created successfully {}, {}", document.getId(), document.getStatus());
+        //log.info("Document created successfully {}, {}", document.getId(), document.getStatus());
         return documentMapper.entityToResponse(document);
     }
 
@@ -89,12 +89,15 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = RuntimeException.class)
     public List<DocumentIdStatusDTO> submitStatus(List<Long> listId) {
+
+        log.info("Send to submit status {}", listId);
         return changeStatus(listId, Status.DRAFT, Status.SUBMITTED, Action.SUBMIT);
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = RuntimeException.class)
     public List<DocumentIdStatusDTO> approveStatus(List<Long> listId) {
+        log.info("Send to approve status {}", listId);
         return changeStatus(listId, Status.SUBMITTED, Status.APPROVED, Action.APPROVE);
     }
 

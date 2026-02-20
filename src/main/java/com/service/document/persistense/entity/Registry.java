@@ -16,8 +16,16 @@ import java.util.UUID;
 @Setter
 @Builder
 public class Registry {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "registry_id_seq_gen")
+    @SequenceGenerator(
+            name = "registry_id_seq_gen",
+            allocationSize = 50,
+            sequenceName = "registry_id_seq",
+            schema = "public",
+            initialValue = 1)
+
     private Long id;
     @NotNull
     @Column(name = "uuid", updatable = false, nullable = false)

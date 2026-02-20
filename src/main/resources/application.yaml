@@ -15,14 +15,17 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: false
+        id:
+          new_generator_mapping: true
         jdbc:
-#          batch_size: ${BATCH_SIZE}
-#        order_inserts: true
-#        order_updates: true
-#        order_select: true
-        generate_statistics: false
+          batch_size: ${BATCH_SIZE}
+        order_inserts: true
+        order_updates: true
+        order_select: true
+        generate_statistics: true
+        default_schema: public
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
   datasource:
     url: ${DATABASE_URL}
     driver-class-name: org.postgresql.Driver

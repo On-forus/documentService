@@ -30,23 +30,28 @@ public class ChangeStatus {
     private String batchSize;
 
     @Async("getExecutor")
-    @Scheduled(fixedDelay = 3_000)
+    @Scheduled(fixedDelay = 200)
     void submitWorker() {
         List<Document> documents = documentRepository.findDocumentBatchSizeListAndStatus(Status.DRAFT,
                 PageRequest.of(0, Integer.parseInt(batchSize)));
 
         List<Long> listId = documentMapper.fromDocumentToLong(documents);
-
+        if(listId.isEmpty()){
+            return;
+        }
         documentController.submitStatusRequest(listId);
     }
 
     @Async("getExecutor")
-    @Scheduled(fixedDelay = 2_000)
+    @Scheduled(fixedDelay = 200)
     void approveWorker(){
         List<Document> documents = documentRepository.findDocumentBatchSizeListAndStatus(Status.SUBMITTED,
                 PageRequest.of(0, Integer.parseInt(batchSize)));
 
         List<Long> listId = documentMapper.fromDocumentToLong(documents);
+        if(listId.isEmpty()){
+           return;
+        }
         documentController.approveStatusRequest(listId);
     }
 }
