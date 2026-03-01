@@ -3,9 +3,11 @@ package com.service.document.persistense.repository;
 import com.service.document.persistense.entity.Document;
 import com.service.document.persistense.entity.History;
 import com.service.document.usecases.dto.enums.Status;
+import jakarta.persistence.LockModeType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public interface DocumentRepository extends JpaRepository<Document, Long>,
 
 
     Page<Document> findAllByOrderByCreateDate(Pageable pageable);
+    @Lock(LockModeType.PESSIMISTIC_READ)
     @Query(value = "SELECT d FROM Document d WHERE d.id IN :listId AND d.status =:status")
     List<Document> findAllByStatus(List<Long> listId, Status status);
 

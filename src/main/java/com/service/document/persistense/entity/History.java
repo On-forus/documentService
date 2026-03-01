@@ -45,7 +45,7 @@ public class History implements Serializable {
     private LocalDate updateDate;
 
     @JoinColumn(name = "history_id")
-    @ManyToOne(fetch =  FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     @NotNull
     private Document document;

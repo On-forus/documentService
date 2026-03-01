@@ -29,6 +29,13 @@ public class DocumentController {
                 .body(documentService.createDocument(documentCreateRequestDTO));
     }
 
+    @PostMapping("/createlist")
+    public ResponseEntity<List<DocumentCreateResponseDTO>> createDocumentsByList(
+            @RequestBody List<DocumentCreateRequestDTO> documentCreateRequestDTO){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(documentService.createDocumentByList(documentCreateRequestDTO));
+    }
+
 
     @GetMapping("/getDocument/{requestId}")
     public ResponseEntity<DocumentHistoryDTO> getOneDocumentWithHistory(@PathVariable Long requestId) {
@@ -58,16 +65,16 @@ public class DocumentController {
 
     @PutMapping("/submit")
     public ResponseEntity<List<DocumentIdStatusDTO>> submitStatusRequest(
-            @RequestBody @Size(min = 0, max = 1000) List<Long> listId) {
-
+            @RequestBody @Size(min = 0, max = 5000) List<Long> listId) {
+        log.info("PUT: Submit status service request");
         List<DocumentIdStatusDTO> listDocumentIdStatusDTO = documentService.submitStatus(listId);
         return ResponseEntity.status(HttpStatus.OK).body(listDocumentIdStatusDTO);
     }
 
     @PutMapping("/approve")
     public ResponseEntity<List<DocumentIdStatusDTO>> approveStatusRequest(
-            @RequestBody @Size(min = 0, max = 1000) List<Long> listId) {
-
+            @RequestBody @Size(min = 0, max = 5000) List<Long> listId) {
+        log.info("PUT: Approve status service request");
         List<DocumentIdStatusDTO> listDocumentIdStatusDTO = documentService.approveStatus(listId);
         return ResponseEntity.status(HttpStatus.OK).body(listDocumentIdStatusDTO);
     }

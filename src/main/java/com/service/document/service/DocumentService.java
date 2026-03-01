@@ -8,7 +8,7 @@ public interface DocumentService {
 
     DocumentCreateResponseDTO createDocument(DocumentCreateRequestDTO documentCreateRequestDTO);
 
-    List<DocumentCreateResponseDTO> createDocumentList(List<DocumentCreateRequestDTO> documentCreateRequestDTOs);
+    List<DocumentCreateResponseDTO> createDocumentByList(List<DocumentCreateRequestDTO> documentCreateRequestDTOS);
 
     DocumentHistoryDTO findDocumentById(Long requestId);
 
@@ -21,6 +21,5 @@ public interface DocumentService {
     List<DocumentIdStatusDTO> submitStatus(List<Long> listId);
 
     List<DocumentIdStatusDTO> approveStatus(List<Long> listId);
-
 
 }

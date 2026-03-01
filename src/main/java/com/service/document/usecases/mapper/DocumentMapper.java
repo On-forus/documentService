@@ -17,6 +17,11 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 @Mapper(componentModel = SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface DocumentMapper {
+
+    @Mapping(target = "createDate", expression = "java(java.time.LocalDate.now())")
+    @Mapping(target = "updateDate", expression = "java(java.time.LocalDate.now())")
+    @Mapping(target = "status", constant = "DRAFT")
+    @Mapping(target = "uuid", expression = "java(java.util.UUID.randomUUID())")
     Document requestToEntity(DocumentCreateRequestDTO documentCreateRequestDTO);
 
     DocumentCreateResponseDTO entityToResponse(Document document);
@@ -29,8 +34,8 @@ public interface DocumentMapper {
     @Mapping(target = "id", ignore = true)
     Registry documentToRegistry(Document document);
 
-    List<Document> requestListToDocumnetList(List<DocumentCreateRequestDTO> documentCreateRequestDTOs);
 
+    List<Document> requestListToDocumnetList(List<DocumentCreateRequestDTO> documentCreateRequestDTOs);
 
     List<DocumentCreateResponseDTO> listDocumentToListResponse(List<Document> documents);
 

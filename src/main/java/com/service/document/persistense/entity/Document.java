@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcType;
+import org.hibernate.annotations.OptimisticLockType;
+import org.hibernate.annotations.OptimisticLocking;
 import org.hibernate.type.descriptor.jdbc.VarcharJdbcType;
 
 import java.io.Serializable;
@@ -21,6 +23,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "documents")
+@OptimisticLocking(type = OptimisticLockType.VERSION)
 public class Document implements Serializable {
 
     private final static long serialVersionUID = 13444445124L;
@@ -31,11 +34,12 @@ public class Document implements Serializable {
             name = "documents_id_seq_gen",
             allocationSize = 100,
             sequenceName = "documents_id_seq",
-            schema = "public",
-            initialValue = 1)
+            schema = "public")
 
     @Column(name = "id")
     private Long id;
+    @Version
+    Long version;
     @NotNull
     @Column(name = "uuid", updatable = false, nullable = false)
     @JdbcType(VarcharJdbcType.class)
@@ -57,7 +61,7 @@ public class Document implements Serializable {
     @Column(name = "updateDate", nullable = false)
     private LocalDate updateDate;
 
-    @OneToMany(mappedBy = "document", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "document", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<History> history;
 
 }

@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: 8099
 spring:
   application:
     name: document-service
@@ -14,7 +14,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: false
+        format_sql: true
         id:
           new_generator_mapping: true
         jdbc:
@@ -31,6 +31,12 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
+    hikari:
+      minimumIdle: 2
+      maximumPoolSize: 10
+      idleTimeout: 120000
+      connectionTimeout: 300000
+      leakDetectionThreshold: 300000
   liquibase:
     change-log: db/changelog/changelog.xml
     enabled: true
@@ -40,7 +46,7 @@ logging:
       springframework:
         orm:
           jpa: ERROR
-        transaction: ERROR
+        transaction: DEBUG
       hibernate:
         SQL: ERROR
         type:
@@ -51,3 +57,6 @@ logging:
 document-api:
   config:
     batch-size: ${BATCH_SIZE}
+    attempts: ${ATTEMPT_SIZE}
+    threads: ${THREAD_SIZE}
+    scheduled: ${FIXED_DELAY}

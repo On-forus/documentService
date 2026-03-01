@@ -3,15 +3,32 @@ services:
     image: postgres:17-alpine
     container_name: document-service-db
     restart: always
+
     environment:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
+
     ports:
       - ${DATABASE_PORT}:5432
     volumes:
       - document-service-db:/var/lib/postgresql/data
 
+
+  app:
+    build: .
+    container_name: document_service
+    env_file:
+      - .env
+    ports:
+      - "8099:8099"
+    depends_on:
+      - db
+#    restart: on-failure
+#networks:
+#  comnet:
+#    driver: bridge
+
+
 volumes:
   document-service-db:
-
